@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Maker</title>
+    <link rel=stylesheet href="style.css">
+</head>
+
+<header>
+    <h1> Change Maker </h1>
+</header>
+
+
+<body>
+<main>
+<label for = "cost"> Cost: </label>
+<input type = "number" id="cost">
+
+<label for = "paid"> Paid: </label>
+<input type = "number" id="paid">
+
+<button onclick="calculateChange()"> Calculate Change </button>
+
+<div id="result"> </div>
+
+</main>
+
+<script>
+// Name: Joshua Hoover //
+//  <changeMaker> // // Purpose: This program is supposed to calculate what change is due after a purchase
+// // Certification of Authenticity: I certify that this program is entirely my own work.
+// // Input: The inputs for this program are the cost of the goods and what the customer paid // Output: The output will be the change that is due and how to give that change back, in dollars and what coins
+
+function calculateChange() {
+  // Get the cost and paid amounts from the user
+  let cost = document.getElementById("cost").value;  // Get the *string* value
+  let paid = document.getElementById("paid").value;   // Get the *string* value
+
+  // Convert to numbers *before* validating
+  let costNum = parseFloat(cost);  // parseFloat avoids parseInt truncation of cents
+  let paidNum = parseFloat(paid);
+
+  // Check if the inputs are valid numbers
+  if (isNaN(costNum) || isNaN(paidNum)) {
+    document.getElementById("result").innerHTML = "<p>Please enter valid numbers for cost and paid.</p>";
+    return; // Stop if there's an error
+  }
+
+  // Check if enough money was paid
+  if (paidNum < costNum) {
+    document.getElementById("result").innerHTML = "<p>Insufficient payment.</p>";
+    return; // Stop if not enough money
+  }
+
+  // Calculate the change
+  let change = paidNum - costNum;
+  let changeDecimal = change.toFixed(2); // Format the change
+
+  // Calculate the number of dollars and coins
+  let remainingChange = change * 100; // Convert to cents
+  let dollars = Math.floor(remainingChange / 100);
+  remainingChange = remainingChange % 100;
+
+  let quarters = Math.floor(remainingChange / 25);
+  remainingChange = remainingChange % 25;
+
+  let dimes = Math.floor(remainingChange / 10);
+  remainingChange = remainingChange % 10;
+
+  let nickels = Math.floor(remainingChange / 5);
+  remainingChange = remainingChange % 5;
+
+  let pennies = Math.round(remainingChange); // Round pennies
+
+  // Construct the message string
+  let msg = "Change: $" + changeDecimal + "<br>";  // Start the message
+  msg += dollars + " dollar(s), ";       // Add dollars
+  msg += quarters + " quarter(s), ";     // Add quarters
+  msg += dimes + " dime(s), ";          // Add dimes
+  msg += nickels + " nickel(s), and ";      // Add nickels
+  msg += pennies + " pennie(s)";          // Add pennies
+
+  // Display the message in the result div
+  document.getElementById("result").innerHTML = "<p>" + msg + "</p>";
+}
+</script>
+    
+</body>
+</html>

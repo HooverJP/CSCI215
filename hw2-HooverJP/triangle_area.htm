@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Triangle Area Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1> Triangle Area Calculator </h1>
+    </header>
+
+<main>
+<label for="sideA"> Side A: </label>
+<input type="number" id="sideA">
+<label for="sideB"> Side B: </label>
+<input type="number" id="sideB">
+<label for="sideC"> Side C: </label>
+<input type="number" id="sideC">
+
+<button onclick="calculateArea()"> Calculate Area </button>
+<div id="result"></div>
+</main>
+    
+
+<script>
+    // Name: Joshua Hoover //
+//  <triangleArea> // // Purpose: This program takes in the values of three sides of a triangle and calculates the area
+// // Certification of Authenticity:  I certify that this program is entirely my own work.
+// // Input: The inputs will be the values for the three sides of the triangle // Output: The program will display what the area is of that triangle
+    function calculateArea() {
+        let sideA = parseFloat(document.getElementById("sideA").value);
+        let sideB = parseFloat(document.getElementById("sideB").value);
+        let sideC = parseFloat(document.getElementById("sideC").value);
+    
+        if (isNaN(sideA) || isNaN(sideB) || isNaN(sideC)) {
+            document.getElementById("result").innerHTML = "<p>Error: Error.</p>";
+            return;
+        }
+    
+        //Moved ALL calculations inside to only execute function when button is pressed!
+        let p = (sideA + sideB + sideC) / 2;
+        let area = Math.sqrt(p * (p - sideA) * (p - sideB) * (p - sideC));
+        document.getElementById("result").innerHTML = "<p>The area of the triangle is: " + area + "</p>";
+    }
+    
+    </script>
+</body>
+</html>
